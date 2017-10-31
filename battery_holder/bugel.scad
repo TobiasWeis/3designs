@@ -80,60 +80,24 @@ module bugel(){
     translate([0,16,-18.5])
     %cube([10,10,18.5]);
     */
-    union(){
-        
-    translate([0,16,-18.5]){
-        difference(){
-            cube([5.6, 3,26]);
-            translate([-0.1,1.6-0.01,21.5])
-            cube([5.8,1.5,3]);
-        }
-        translate([0,-0.9,0])
-        cube([5.6,3.89,18.65]);
-    }
+    
+    translate([0,16,-18.5])
+    cube([5.6, 3,25]);
     
     
-    translate([0,-16-3,-18.5]){
-        difference(){
-            cube([5.6, 3,26]);
-            translate([-0.1,-0.01,21.5])
-            cube([5.8,1.5,3]);
-        }
-        cube([5.6,3.89,18.65]);
-    }
+    translate([0,-16-3,-18.5])
+    cube([5.6, 3,25]);
     
+    translate([0,-16-4,3.5])
+    cube([5.6,4,3]);
     
-    translate([0,-16-4,3.6])
-    rotate([-18,0,0])
-    cube([5.6, 1, 3.5]);
-    
-    /*
-    translate([0,-16-3.8,3.6])
-    %cube([5.6,4,3]);
-    */
-    
-    translate([0,16+3.1,3.35])
-    rotate([18,0,0])
-    cube([5.6, 1, 3.5]);
-    
-    /*
     translate([0,16,3.5])
-    %cube([5.6,4,3]);
-    */
-    
-    translate([0,15.099,0.15])
-    rotate([-19,0,0])
-    cube([5.6,2,3]);
-    
-    translate([0,-17,-0.5])
-    rotate([19,0,0])
-    cube([5.6,2,3]);
+    cube([5.6,4,3]);
     
     myheight=3;
     translate([0,-19,-18.5-myheight])
     cube([5.6,38,myheight]);
 }
-}
 
-holder();
+//holder();
 bugel();

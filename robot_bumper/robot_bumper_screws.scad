@@ -56,12 +56,12 @@ module bumper(){
             cylinder(r=1.65, h=20, $fn=200);
             
             rotate([0,90,0])
-            translate([0,0,7.01])
-            cylinder(r=6.1/2, h=3, $fn=6);
+            translate([0,0,7.01]);
+            //cylinder(r=6.1/2, h=3, $fn=6);
             
                         rotate([0,90,0])
             translate([0,0,2.99])
-            cylinder(r=5.4/2, h=3, $fn=200);
+            cylinder(r=7/2, h=3, $fn=200);
         }
         
         translate([-20,23,10]){
@@ -69,11 +69,11 @@ module bumper(){
             cylinder(r=1.65, h=20, $fn=200);
             
             rotate([0,90,0])
-            translate([0,0,7.01])
-            cylinder(r=6.1/2, h=3, $fn=6);            
+            translate([0,0,7.01]);
+            //cylinder(r=6.1/2, h=3, $fn=6);            
                         rotate([0,90,0])
             translate([0,0,2.99])
-            cylinder(r=5.4/2, h=3, $fn=200);
+            cylinder(r=7/2, h=3, $fn=200);
         }
         
         translate([-20,23,45]){
@@ -81,12 +81,12 @@ module bumper(){
             cylinder(r=1.65, h=20, $fn=200);
             
             rotate([0,90,0])
-            translate([0,0,7.01])
-            cylinder(r=6.1/2, h=3, $fn=6);     
+            translate([0,0,7.01]);
+            //cylinder(r=6.1/2, h=3, $fn=6);     
      
             rotate([0,90,0])
             translate([0,0,2.99])
-            cylinder(r=5.4/2, h=3, $fn=200);          
+            cylinder(r=7/2, h=3, $fn=200);          
         }
         
         translate([-20,7,45]){
@@ -95,10 +95,10 @@ module bumper(){
             
             rotate([0,90,0])
             translate([0,0,7.01])
-            cylinder(r=6.1/2, h=3, $fn=6);            
+            //cylinder(r=6.1/2, h=3, $fn=6);            
                         rotate([0,90,0])
             translate([0,0,2.99])
-            cylinder(r=5.4/2, h=3, $fn=200);
+            cylinder(r=7/2, h=3, $fn=200);
         }
     }
 }
@@ -117,7 +117,7 @@ module anchor(){
             
             rotate([0,90,0])
             translate([0,0,7.01])
-            cylinder(r=6.1/2, h=3, $fn=6);
+            cylinder(r=6.5/2, h=3, $fn=6);
         }
         
         translate([5,23,10]){
@@ -126,7 +126,7 @@ module anchor(){
             
             rotate([0,90,0])
             translate([0,0,7.01])
-            cylinder(r=6.1/2, h=3, $fn=6);
+            cylinder(r=6.5/2, h=3, $fn=6);
         }        
         
         translate([5,23,45]){
@@ -135,7 +135,7 @@ module anchor(){
             
             rotate([0,90,0])
             translate([0,0,7.01])
-            cylinder(r=6.1/2, h=3, $fn=6);
+            cylinder(r=6.5/2, h=3, $fn=6);
         }    
    
         translate([5,7,45]){
@@ -144,7 +144,7 @@ module anchor(){
             
             rotate([0,90,0])
             translate([0,0,7.01])
-            cylinder(r=6.1/2, h=3, $fn=6);
+            cylinder(r=6.5/2, h=3, $fn=6);
         }    
         
     }

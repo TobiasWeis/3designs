@@ -43,17 +43,17 @@ module base(){
 
 module stange(){
     rotate([0,90,0])
-    cylinder(r=3, h=20, $fn=6);
+    cylinder(r=2.8, h=20, $fn=6);
     
-    translate([-5,0,0])
+    translate([-3,0,0])
     rotate([0,90,0])
-    cylinder(r=5, h=5, $fn=6);
+    cylinder(r=4.7,h=3, $fn=6);
 }
 
 module bumper(){
     union(){
         translate([50,0,0])
-        cube([5,30,50]);
+        cube([3,30,50]);
         
         translate([30,7,18])
         stange();

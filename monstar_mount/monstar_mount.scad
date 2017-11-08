@@ -4,8 +4,8 @@
 // gewinde: 2.8mm
 
 module schraube(){
-        cylinder(r=5.5/2., h=3, $fn=100);
-        cylinder(r=1.5, h=20, $fn=100);
+        cylinder(r=5.7/2., h=3, $fn=100);
+        cylinder(r=1.7, h=20, $fn=100);
 }
 
 
@@ -24,13 +24,13 @@ difference(){
     
     // schraubenlöcher
     //offset: 3.3
-    translate([4.5, 4.5, -0.01])
+    #translate([4.5, 4.8, -0.01])
     schraube();
     
-    translate([66-4.5, 4.5, -0.01])
-    schraube();
+    translate([66-4.5, 4.8, -0.01])
+    #schraube();
     
-    translate([4.5, 62-4.5,-0.01])
+    translate([4.5, 62-4.8,-0.01])
     schraube();
     
     translate([66/2, 10.01,5+1])

@@ -113,38 +113,38 @@ module anchor(){
         
         translate([5,7,10]){
             rotate([0,90,0])
-            cylinder(r=1.65, h=20, $fn=200);
+            cylinder(r=1.75, h=20, $fn=200);
             
             rotate([0,90,0])
             translate([0,0,7.01])
-            cylinder(r=6.5/2, h=3, $fn=6);
+            cylinder(r=7/2, h=3, $fn=6);
         }
         
         translate([5,23,10]){
             rotate([0,90,0])
-            cylinder(r=1.65, h=20, $fn=200);
+            cylinder(r=1.75, h=20, $fn=200);
             
             rotate([0,90,0])
             translate([0,0,7.01])
-            cylinder(r=6.5/2, h=3, $fn=6);
+            cylinder(r=7/2, h=3, $fn=6);
         }        
         
         translate([5,23,45]){
             rotate([0,90,0])
-            cylinder(r=1.65, h=20, $fn=200);
+            cylinder(r=1.75, h=20, $fn=200);
             
             rotate([0,90,0])
             translate([0,0,7.01])
-            cylinder(r=6.5/2, h=3, $fn=6);
+            cylinder(r=7/2, h=3, $fn=6);
         }    
    
         translate([5,7,45]){
             rotate([0,90,0])
-            cylinder(r=1.65, h=20, $fn=200);
+            cylinder(r=1.75, h=20, $fn=200);
             
             rotate([0,90,0])
             translate([0,0,7.01])
-            cylinder(r=6.5/2, h=3, $fn=6);
+            cylinder(r=7/2, h=3, $fn=6);
         }    
         
     }

@@ -143,7 +143,21 @@ module angled_hook(num_horiz, length){
     }
 }
 
+module pineholder(num_horiz=1){
+    for(y = [0:num_horiz-1]){
+        translate([-2.2, -2.2+y*15, 11])
+        cube([hole_diameter, hole_diameter, 33]);
+        
+        translate([-2.2-10+hole_diameter, -2.2+y*15, 11+33])
+        cube([10, hole_diameter, hole_diameter]);
+    }
+}
 
+// pine 64 touchscreen holder
+hooks(3,1, spacing=15);
+pineholder(3);
+
+/*
 // single angled hook
 hooks(1,2,spacing=15);
 angled_hook(num_horiz=1, length=15);
@@ -172,3 +186,4 @@ translate([0,0,-50]){
     hooks(2,1);
     cablehold();
 }
+*/

@@ -1,7 +1,7 @@
 // 2.5cm stangendurchmesser
 // kugellager: 22, 7 hoch
 
-$fn = 200;
+$fn = 500;
 
 thickness=5;
 stange = 25;
@@ -129,9 +129,73 @@ module slider(){
     }
 }
 
+module controlbox(){
+    // box
+    /*
+    difference(){
+        cube([120,90,60]);
+        translate([5,5,5])
+        cube([110,80,60]);
+        
+        translate([3,3,40.1])
+        cylinder(r=1.6, h=20);
+        
+        translate([3,90-3,40.1])
+        cylinder(r=1.6, h=20); 
+ 
+         translate([120-3,90-3,40.1])
+        cylinder(r=1.6, h=20);       
+        
+         translate([120-3,3,40.1])
+        cylinder(r=1.6, h=20);               
+    }
+    */
+    
+    // deckel
+    translate([0,0,70])
+    difference(){
+        cube([120,90,3]);
+        //display: 4.6x3.4
+        translate([20,90/2 - 46/2,-0.5])
+        cube([34,46,6]);
+        
+        // joystick: 26x22
+        translate([70,90/2 - 26/2,-0.5])
+        cube([22,26,6]);
+        
+        translate([3,3,-10.1])
+        cylinder(r=1.6, h=20);
+        
+        translate([3,90-3,-10.1])
+        cylinder(r=1.6, h=20); 
+ 
+         translate([120-3,90-3,-10.1])
+        cylinder(r=1.6, h=20);       
+        
+         translate([120-3,3,-10.1])
+        cylinder(r=1.6, h=20);   
+   
+        // versenkungen
+        translate([3,3,2.1])
+        cylinder(r=9/2, h=3);
+        
+        translate([3,90-3,2.1])
+        cylinder(r=9/2, h=3); 
+ 
+        translate([120-3,90-3,2.1])
+        cylinder(r=9/2, h=3);       
+        
+         translate([120-3,3,2.1])
+        cylinder(r=9/2, h=3);   
+        
+    }
+}
+
 //slider();
 //endmotor();
-endroller();
+translate([-20,150,-25])
+controlbox();
+//endroller();
 
 // riemen
 /*

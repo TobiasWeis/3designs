@@ -17,17 +17,8 @@ difference(){
     union(){
         rotate([-20.5,0,0])
         cube([tab_w+4,  tab_d+1, 10]);
-        
-        // stützen
-        translate([0,10,-3])
-        rotate([25.5, 0,0])
-        cube([5, tab_d + 2, 8]);
-        
-        translate([tab_w-1, 10,-3])
-        rotate([25.5, 0,0])
-        cube([5, tab_d + 2, 8]);
 
-        translate([0, 8.5,-3])
+        translate([2, 9.615,-0.948])
         rotate([25.5, 0,0])
         cube([tab_w, 0.8, 10]);
         
@@ -44,7 +35,7 @@ difference(){
     translate([2,-0.01,3.5])
     #cube([tab_w, tab_d, tab_l]);
     
-    translate([-.5,-5,-3])
+    translate([-.5,-2,-3])
     cube([tab_w+5, 15, 3]);
       
     // usb
@@ -55,15 +46,15 @@ difference(){
     //translate([usb_offset_w, 0.5, -0.01])
     //cube([usb_w, 5, usb_d]);
     
-    translate([tab_w-3.7, 5.7,0.])
+    translate([tab_w-3.7,10+5.7,0.])
     rotate([90,0,0])
-    cylinder(r=0.5, h=5,$fn=200);
+    cylinder(r=0.5, h=15,$fn=200);
 
     
     // cut off the sides to fit it in 10cm
-    translate([-0.01-3, -2, -5.01])
+    translate([-4.91-3, -2, -5.01])
     cube([10,100,100]);
     
-    translate([tab_w+4-10+0.01+3, -2, -5.01])
+    translate([4.9+tab_w+4-10+0.01+3, -2, -5.01])
     cube([10,100,100]);    
 }

@@ -73,11 +73,19 @@ module endmotor(){
                 */
             }
         }
+<<<<<<< HEAD
         
             // gewindeschraube für stativ
             translate([space/2,-30,-18.01])
             cylinder(r=8.8/2, h=9);                    
         
+=======
+        
+            // gewindeschraube für stativ
+            translate([space/2,-30,-18.01])
+            cylinder(r=8.8/2, h=9);                    
+        
+>>>>>>> 834840c78f008d79a39e87892cf74871e2b7c4c5
         translate([space/2-31/2, -60/2-31/2,-50])
         cylinder(r=1.6, h=100);
         
@@ -204,8 +212,8 @@ module controlbox(){
     
     difference(){
         cube([120,90,60]);
-        translate([5,5,5])
-        cube([110,80,60]);
+        translate([3,3,3])
+        cube([114,84,60]);
         
         translate([3,3,40.1])
         cylinder(r=1.6, h=20);
@@ -238,6 +246,7 @@ module controlbox(){
     
     
     // deckel
+    /*
     translate([0,0,70])
     difference(){
         cube([120,90,3]);
@@ -273,18 +282,29 @@ module controlbox(){
         
          translate([120-3,3,2.1])
         cylinder(r=9/2, h=3);   
-        
     }
+<<<<<<< HEAD
+    */
+=======
+>>>>>>> 834840c78f008d79a39e87892cf74871e2b7c4c5
     
 }
 
 difference(){
     union(){
+<<<<<<< HEAD
+        //slider();
+        //endmotor();
+        //translate([-20,320,-32])
+        controlbox();
+        //endroller();
+=======
         slider();
         endmotor();
         translate([-20,320,-32])
         controlbox();
         endroller();
+>>>>>>> 834840c78f008d79a39e87892cf74871e2b7c4c5
     }
     
     // schraublöcher für controlbox zu motorendstück

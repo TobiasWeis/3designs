@@ -6,7 +6,7 @@ difference(){
     // axles
     translate([65,0,0])
     rotate([90,0,0])
-    cylinder(r=4.2, h=100, $fn=50, center=true);
+    cylinder(r=4.1, h=100, $fn=50, center=true);
     
     translate([-65,0,0])
     rotate([90,0,0])

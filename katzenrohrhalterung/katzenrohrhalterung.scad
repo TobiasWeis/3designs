@@ -32,10 +32,11 @@ module halterung(){
     }
 }
 
-radius = 150;
-inner_radius = 148;
+radius = 148/2;
+inner_radius = 146/2;
 angle_1 = 0;
 angle_2 = 25;
+armlength=30;
 
 union() {
     // lower arm
@@ -43,9 +44,9 @@ union() {
     translate([angle_2 + radius, 0.02, 0])
     rotate([90, 0, 0])
     difference() {
-        cylinder(r=radius, h=50);
+        cylinder(r=radius, h=armlength);
         translate([0, 0, -1])
-        cylinder(r=inner_radius, h=52);
+        cylinder(r=inner_radius, h=armlength+2);
     }
 
     // upper arm
@@ -53,9 +54,9 @@ union() {
     translate([angle_2 + radius, -0.02, 0])
     rotate([-90, 0, 0])
     difference() {
-        cylinder(r=radius, h=50);
+        cylinder(r=radius, h=armlength);
         translate([0, 0, -1])
-        cylinder(r=inner_radius, h=52);
+        cylinder(r=inner_radius, h=armlength+2);
     }
 
     // bend

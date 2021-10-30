@@ -8,19 +8,19 @@ use <skin.scad>
 
 $fn=128;
 
-wand=5;
+wand=6;
 durchmesser_aussen=150;
 
 module halterung(){        
     difference(){
         hull(){
-            cylinder(r=durchmesser_aussen/2+wand, h=20, center=true);
+            cylinder(r=durchmesser_aussen/2+wand, h=25, center=true);
             translate([0,-durchmesser_aussen/2,0])
-            cube([100, 25, 20], center = true);  
+            cube([100, 25, 25], center = true);  
         }
-        cylinder(r=durchmesser_aussen/2, h=21, center=true);
-        translate([0,130,0])
-        cube([200,200,25], center=true);
+        cylinder(r=durchmesser_aussen/2, h=26, center=true);
+        //translate([100,100,0])
+        //cube([200,200,25], center=true);
         
         translate([0, -durchmesser_aussen/2,0])
         rotate([90,0,0])
@@ -30,6 +30,20 @@ module halterung(){
         rotate([90,0,0])
         cylinder(r=6, h=4, center=true);
     }
+}
+
+union(){
+    difference(){
+        halterung();
+        
+        translate([0,-5,-50])
+        cube([100,10,100]);
+    }
+    translate([durchmesser_aussen/2+wand/3-0.2, -5, -25/2])
+    cylinder(r=wand/3*2, h=25);
+    
+    translate([durchmesser_aussen/2+wand/3-0.2, 5, -25/2])
+    cylinder(r=wand/3*2, h=25);    
 }
 
 module rohr(l){
@@ -109,4 +123,4 @@ module aufbau(){
 }
 
 //aufbau();
-verbinder(35);
+//verbinder(35);

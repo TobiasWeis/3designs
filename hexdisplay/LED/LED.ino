@@ -15,7 +15,8 @@ const char* ssid     = STASSID;
 const char* password = STAPSK;
 
 // SHA-1 Fingerprint für evtek-website (aus browser)
-const char evtek_webapp_fingerprint[] PROGMEM = "89 ED 71 C2 14 D6 43 C2 03 3F 27 46 B5 87 6D 6F E2 D3 D9 63";
+const char evtek_webapp_fingerprint[] PROGMEM = "DB 6B 9E 0C 41 F1 05 ED 01 26 B4 FE 55 29 FF EC 74 A7 F6 FF";
+const char evtek_webapp_prod_fingerprint[] PROGMEM = "BD 0C 37 1C 00 2F 2B 30 00 3F 82 13 D2 82 1D B7 0D 7A 3D A6";
 
 #include <Adafruit_NeoPixel.h>
 #include <GxEPD.h>
@@ -42,10 +43,10 @@ byte randLEDNumber = 0;
 uint32_t green = strip.Color(0,255,0);
 uint32_t red = strip.Color(255,0,0);
 
-const int num_servers = 3;
-bool states[num_servers] = {false, false, false};
-bool last_states[num_servers] = {false, false, false};
-String lines[num_servers+1] = {"Server1", "Server2", "Server3", "Status"};
+const int num_servers = 4;
+bool states[num_servers] = {false, false, false, false};
+bool last_states[num_servers] = {false, false, false, false};
+String lines[num_servers+1] = {"Server1", "Server2", "Server3", "Server4", "Status"};
 
 int cnt = 0;
 
@@ -129,44 +130,66 @@ void loop() {
     
     lines[num_servers] = "";
 
+    int line = 0;
+
     //********************* Evtek check website ***************/
     // SHA-1 fingerprint (extracted from browser): 9A AE C3 C1 FB 98 F4 1B B2 9B B3 98 1D 15 CF 1A 60 9B F4 35
     if (httpsClient.connect("evtek.ddns.me", 443)){
-      states[0] = true;
-      lines[0] = "U WebApp";
+      states[line] = true;
+      lines[line] = "U WebApp";
     }else{
-      states[0] = false;
-      lines[0] = "D WebApp";
+      states[line] = false;
+      lines[line] = "D WebApp";
       error = true;
     }
     httpsClient.stop();   //Close connection
+
+    line++;
+
+    //********************* Evtek check public website ***************/
+    httpsClient.setFingerprint(evtek_webapp_prod_fingerprint);
+    // SHA-1 fingerprint (extracted from browser): 9A AE C3 C1 FB 98 F4 1B B2 9B B3 98 1D 15 CF 1A 60 9B F4 35
+    if (httpsClient.connect("evtek.co", 443)){
+      states[line] = true;
+      lines[line] = "U WebApp-Prod";
+    }else{
+      states[line] = false;
+      lines[line] = "D WebApp-Prod";
+      error = true;
+    }
+    httpsClient.stop();   //Close connection    
+
+    line++;
+    
 
     //********************* Interface-Server check website ***************/
     int ret = http.get("interface.evtek.ddns.me", "/version/");
     int httpCode = http.responseStatusCode();
     if (ret == 0 && httpCode == 200) { //Check the returning code
-      states[1] = true;
-      lines[1] = "U IFS";
+      states[line] = true;
+      lines[line] = "U IFS";
     }else{
-      states[1] = false;
+      states[line] = false;
       char buffer[30];
       sprintf(buffer, "D IFS (%d)",httpCode);
-      lines[1] = buffer;
+      lines[line] = buffer;
       error = true;
     }
     http.stop();   //Close connection
+
+    line++;
 
     //********************* MLRuntimeSystem check website ***************/
     ret = http.get("mlruntimesystem.ddns.net", 5002, "/");  //Specify request destination
     httpCode = http.responseStatusCode();
     if (ret== 0 && httpCode == 401) { // this one has basicAuth enabled
-      states[2] = true;
-      lines[2] = "U Eve-1";
+      states[line] = true;
+      lines[line] = "U Eve-1";
     }else{
-      states[2] = false;
+      states[line] = false;
       char buffer[30];
       sprintf(buffer, "D Eve-1 (%d)",httpCode);
-      lines[2] = buffer;
+      lines[line] = buffer;
       error = true;
     }
     http.stop();

@@ -1,5 +1,4 @@
 #include <ESP8266WiFi.h>
-#include <ESP8266Ping.h>
 #include <WiFiClient.h>
 #include <WiFiClientSecure.h>
 #include <HttpClient.h>
@@ -123,7 +122,8 @@ void loop() {
   if (WiFi.status() == WL_CONNECTED) { //Check WiFi connection status
     WiFiClient client;
     WiFiClientSecure httpsClient;
-    httpsClient.setFingerprint(evtek_webapp_fingerprint);
+    //httpsClient.setFingerprint(evtek_webapp_fingerprint);
+    httpsClient.setInsecure();
     httpsClient.setTimeout(5000);
     
     HttpClient http(client);  //Declare an object of class HTTPClient
@@ -133,7 +133,6 @@ void loop() {
     int line = 0;
 
     //********************* Evtek check website ***************/
-    // SHA-1 fingerprint (extracted from browser): 9A AE C3 C1 FB 98 F4 1B B2 9B B3 98 1D 15 CF 1A 60 9B F4 35
     if (httpsClient.connect("evtek.ddns.me", 443)){
       states[line] = true;
       lines[line] = "U WebApp";
@@ -147,8 +146,6 @@ void loop() {
     line++;
 
     //********************* Evtek check public website ***************/
-    httpsClient.setFingerprint(evtek_webapp_prod_fingerprint);
-    // SHA-1 fingerprint (extracted from browser): 9A AE C3 C1 FB 98 F4 1B B2 9B B3 98 1D 15 CF 1A 60 9B F4 35
     if (httpsClient.connect("evtek.co", 443)){
       states[line] = true;
       lines[line] = "U WebApp-Prod";
@@ -189,6 +186,23 @@ void loop() {
       states[line] = false;
       char buffer[30];
       sprintf(buffer, "D Eve-1 (%d)",httpCode);
+      lines[line] = buffer;
+      error = true;
+    }
+    http.stop();
+
+    line++;
+
+    //********************* MLRuntimeSystem-2 check website ***************/
+    ret = http.get("mlruntimesystem.ddns.net", 5003, "/");  //Specify request destination
+    httpCode = http.responseStatusCode();
+    if (ret== 0 && httpCode == 401) { // this one has basicAuth enabled
+      states[line] = true;
+      lines[line] = "U Eve-2";
+    }else{
+      states[line] = false;
+      char buffer[30];
+      sprintf(buffer, "D Eve-2 (%d)",httpCode);
       lines[line] = buffer;
       error = true;
     }

@@ -133,7 +133,7 @@ void loop() {
     int line = 0;
 
     //********************* Evtek check website ***************/
-    if (httpsClient.connect("evtek.ddns.me", 443)){
+    if (httpsClient.connect("recycletek.ddns.net", 443)){
       states[line] = true;
       lines[line] = "U WebApp";
     }else{
@@ -146,7 +146,7 @@ void loop() {
     line++;
 
     //********************* Evtek check public website ***************/
-    if (httpsClient.connect("evtek.co", 443)){
+    if (httpsClient.connect("recycletek.co", 443)){
       states[line] = true;
       lines[line] = "U WebApp-Prod";
     }else{
@@ -160,23 +160,33 @@ void loop() {
     
 
     //********************* Interface-Server check website ***************/
-    int ret = http.get("interface.evtek.ddns.me", "/version/");
-    int httpCode = http.responseStatusCode();
-    if (ret == 0 && httpCode == 200) { //Check the returning code
+    if (httpsClient.connect("interface.recycletek.ddns.net", 443)){
       states[line] = true;
       lines[line] = "U IFS";
     }else{
       states[line] = false;
-      char buffer[30];
-      sprintf(buffer, "D IFS (%d)",httpCode);
-      lines[line] = buffer;
+      lines[line] = "D IFS";
       error = true;
     }
-    http.stop();   //Close connection
+    httpsClient.stop();   //Close connection    
+
+    line++;
+
+    //********************* Interface-Server check website ***************/
+    if (httpsClient.connect("interface.recycletek.co", 443)){
+      states[line] = true;
+      lines[line] = "U IFS-Prod";
+    }else{
+      states[line] = false;
+      lines[line] = "D IFS-Prod";
+      error = true;
+    }
+    httpsClient.stop();   //Close connection    
 
     line++;
 
     //********************* MLRuntimeSystem check website ***************/
+    /*
     ret = http.get("mlruntimesystem.ddns.net", 5002, "/");  //Specify request destination
     httpCode = http.responseStatusCode();
     if (ret== 0 && httpCode == 401) { // this one has basicAuth enabled
@@ -192,17 +202,18 @@ void loop() {
     http.stop();
 
     line++;
+    */
 
     //********************* MLRuntimeSystem-2 check website ***************/
-    ret = http.get("mlruntimesystem.ddns.net", 5003, "/");  //Specify request destination
-    httpCode = http.responseStatusCode();
+    int ret = http.get("mlruntimesystem.ddns.net", 6004, "/");  //Specify request destination
+    int httpCode = http.responseStatusCode();
     if (ret== 0 && httpCode == 401) { // this one has basicAuth enabled
       states[line] = true;
-      lines[line] = "U Eve-2";
+      lines[line] = "U Eve-2.5";
     }else{
       states[line] = false;
       char buffer[30];
-      sprintf(buffer, "D Eve-2 (%d)",httpCode);
+      sprintf(buffer, "D Eve-2.5 (%d)",httpCode);
       lines[line] = buffer;
       error = true;
     }

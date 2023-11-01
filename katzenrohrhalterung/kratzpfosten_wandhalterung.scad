@@ -1,11 +1,11 @@
 $fn=128;
-thickness=5;
-height=10;
+thickness=6;
+height=20;
 diameter_pole = 86;
 
 difference(){
     union(){
-        translate([-20, diameter_pole/2, 0])
+        translate([-20, diameter_pole/2+1, 0])
         cube([40, 5, height]);
 
         difference(){
@@ -13,7 +13,7 @@ difference(){
             translate([0,0,-.5])
             cylinder(r=diameter_pole/2, h=height+1);
             
-            translate([-diameter_pole/2-5, -diameter_pole/2-40,-.5])
+            translate([-diameter_pole/2-5, -diameter_pole/2-20,-.5])
             cube([diameter_pole+10, diameter_pole/2+10, height+1]);
         }
     }
@@ -24,6 +24,7 @@ difference(){
     for(x = [-12:12:12]){
         translate([x,diameter_pole/2+5.001,height/2]){
             rotate([90,0,0]){
+                translate([0,0,-10])
                 cylinder(r=1.8, h=20);
                 
                 translate([0,0,2])

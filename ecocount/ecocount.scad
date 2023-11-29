@@ -7,7 +7,7 @@ module logo(){
     rotate([90,0,0])
     linear_extrude(0.1)
     scale([0.05, 0.05, 0.05])
-    import("/home/weis/Schreibtisch/rt_circle.svg");
+    import("/home/weis/code/3designs/ecocount/rt_circle.svg");
 }
 
 module ecc(ext, smaller=0){
@@ -27,34 +27,51 @@ module ecc(ext, smaller=0){
     );
 }
 
-if(true){
+if(false){
     color([0,0,1])
     ecc(0.1);
+    
+    translate([0,-0.1])
+    difference(){
+        ecc(0.3, 0.25);
+        translate([0,.05,0])
+        ecc(0.4, 0.5);
+    }
 }
 
 color([0,1,0])
 translate([3.5,0.001,2])
 logo();
 
-translate([0,-0.1,0])
-color([0,1,0])
-difference(){
-    ecc(3);
-    translate([0,.5,0])
-    ecc(4, smaller=0.2);
-    
-    // cutout for bottles
-    translate([0.25,-2.75, 3.1])
-    rotate([0,-41,0])
-    cube([1.5, 2.5, 0.1]);
-    
-    // cutout for screen
-    translate([set_in-0.001, -2.75, 4.7])
-    cube([.1, 2.5, 1.5]);
+if (true){
+    translate([0,-0.1,0])
+    color([0,1,0])
+    difference(){
+        ecc(3);
+        translate([0,.5,0])
+        ecc(4, smaller=0.2);
+        
+        // cutout for bottles
+        translate([0.25,-2.75, 3.1])
+        rotate([0,-41,0])
+        cube([1.5, 2.5, 0.1]);
+        
+        // cutout for screen
+        translate([set_in-0.001, -2.75, 4.7])
+        cube([.1, 2.5, 1.5]);
+    }
 }
 
-if(true){
+
+if(false){
     translate([0,-3.1,0])
     color([0,0,1])
     ecc(0.1);
+    
+    translate([0,-2.8])
+    difference(){
+        ecc(0.3, 0.25);
+        translate([0,.05,0])
+        ecc(0.4, 0.5);
+    }
 }

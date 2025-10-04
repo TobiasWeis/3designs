@@ -92,8 +92,10 @@ module arm(){
     }
 }
 
-color("gray")
-arm();
+if(false){
+    color("gray")
+    arm();
+}
 
 if(false){
     translate([200, 0, 0])

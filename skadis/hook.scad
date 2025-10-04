@@ -11,7 +11,7 @@ loch_abstand_vertikal=40;
 dicke_skadis=5.;
 r_skadis=2.5;
 
-tolerance=0.1;
+tolerance=0.15;
 
 h_secondary=5.5;
 
@@ -62,16 +62,22 @@ module clippy_sphere(){
 }
 
 module clippy_oval(){
-    bump_width=0.8;
-    slit_width=0.3;
+    bump_width=0.4;
+    slit_width=0.7;
     
     difference(){
         union(){
             hull(){
-                translate([0, dicke_skadis+(r_skadis-tolerance+bump_width)/4, 0])
+                translate([0, dicke_skadis+(r_skadis-tolerance+bump_width)/4.5, 0])
+                sphere(r=r_skadis-tolerance + bump_width);
+            
+                translate([0, dicke_skadis+(r_skadis-tolerance+bump_width)/4.5, r_skadis+tolerance])
+                sphere(r=r_skadis-tolerance + bump_width);
+            
+                translate([0, dicke_skadis+(r_skadis-tolerance+bump_width)/4.5, 6])
                 sphere(r=r_skadis-tolerance + bump_width);
                 
-                translate([0, dicke_skadis+(r_skadis-tolerance+bump_width)/4, 15-2*(r_skadis-tolerance)])
+                translate([0, dicke_skadis+(r_skadis-tolerance+bump_width)/4.5, 15-2*(r_skadis-tolerance)])
                 sphere(r=r_skadis-tolerance + bump_width);
 
             }
@@ -91,12 +97,12 @@ module clippy_oval(){
         translate([-slit_width/2, 0, -5])
         cube([slit_width, 10, 20]);
         
-        translate([-4*slit_width/2, 5, -5])
-        cube([4*slit_width, 5, 20]);
+        translate([-3*slit_width/2, 5, -5])
+        cube([3*slit_width, 5, 20]);
         
         translate([0, dicke_skadis+(r_skadis-tolerance+bump_width)/3, -5])
         rotate([0, 0, 0])
-        cylinder(r=1.5, h=20);
+        cylinder(r=1.4, h=20);
         
         translate([-10, 0, -10-r_skadis+tolerance])
         cube([100, 20, 10]);
@@ -348,26 +354,92 @@ module attachment_zangenhalter(inner_depth=10, inner_width=40, height=15, bottom
         
         translate([0,0,tz])
         hull(){
-            translate([0, -inner_depth/2-r_skadis, 0])
-            cube([inner_width, inner_depth/2, height]);
+            translate([1, -inner_depth/2-r_skadis-1, 0])
+            cube([inner_width-2, inner_depth/2-2, 0.01]);
+            
+            translate([0, -inner_depth/2-r_skadis, height])
+            cube([inner_width, inner_depth/2, 0.01]);
             
             translate([r_skadis, -inner_depth, 0])
-            cylinder(r=r_skadis, h=height);
+            cylinder(r2=r_skadis, r1=r_skadis-1,  h=height);
             
             translate([inner_width-r_skadis, -inner_depth, 0])
-            cylinder(r=r_skadis, h=height);
+            cylinder(r2=r_skadis, r1=r_skadis-1, h=height);
         
         }
     }
 }
 
+module attachment_flach(){
+    difference(){        
+        union(){
+            translate([tolerance, -s, tolerance])
+            rotate([90, 0, 0])
+            cylinder(r=r_skadis, h=3);
+            
+            hull(){
+                translate([tolerance, -s-3, tolerance])
+                rotate([90, 0, 0])
+                cylinder(r=r_skadis, h=3);
+                
+                translate([tolerance, -s-3, 15])
+                rotate([90, 0, 0])
+                cylinder(r=r_skadis, h=3);
+            }
+        }
+        
+        translate([r_skadis-tolerance, -50, -50])
+        cube([5, 100, 100]);
+        
+        
+        translate([-5-(r_skadis-tolerance), -50, -50])
+        cube([5, 100, 100]);
+    }
+}
 
 
-if(true){ // schmaler zangenhalter
+if(true){ // leiste mit vielen haken
     clippy_oval();
-    inner_width=10;
+    translate([40*3, 0, 0])
+    clippy_oval();
+    
+    hull(){
+        rotate([90, 0, 0])
+        cylinder(r=r_skadis-tolerance, h=2);
+        
+        translate([40*3,0,0])
+        rotate([90, 0, 0])
+        cylinder(r=r_skadis-tolerance, h=2);
+        
+        translate([40*3,0, 15-2*(r_skadis-tolerance)])
+        rotate([90, 0, 0])
+        cylinder(r=r_skadis-tolerance, h=2);
+        
+        translate([0,0, 15-2*(r_skadis-tolerance)])
+        rotate([90, 0, 0])
+        cylinder(r=r_skadis-tolerance, h=2);
+    }
+    
+    for(x=[-1.8/2:(40*3)/7:40*3]){
+        translate([x, 1, -30.505-0.7])
+        attachment_hook(hook_r=1.8);
+    }
+    
+    //translate([-r_skadis+tolerance, -s, -r_skadis+tolerance])
+    //cube([20*8+2+r_skadis-tolerance, 3, 15]);
+}
+
+if(false){ // geodreieck, papier, flache sachen
+    holder(height=1);
+    attachment_flach();
+}
+
+
+if(false){ // schmaler zangenhalter
+    clippy_oval();
+    inner_width=9;
     translate([-inner_width/2, 0, 0])
-    attachment_zangenhalter(inner_depth=10, inner_width=inner_width, height=25, bottom=1);
+    attachment_zangenhalter(inner_depth=9, inner_width=inner_width, height=35, bottom=1);
 }
 
 if(false){ // breiter Zangenhalter
@@ -376,15 +448,32 @@ if(false){ // breiter Zangenhalter
     translate([40, 0, 0])
     clippy_oval();
     
-    attachment_zangenhalter();
+    attachment_zangenhalter(inner_depth=15);
+}
+
+if(false){ // breites, tiefes regal
+    clippy_oval();
+    
+    hook_distance = 2*40;
+    
+    translate([hook_distance, 0, 0])
+    clippy_oval();
+    
+    inner_width=84;
+    
+    translate([r_skadis-tolerance - ((inner_width+2*(r_skadis-tolerance)) - hook_distance)/2 , 0, 0])
+    attachment_zangenhalter(inner_depth=25, inner_width=inner_width, height=30, bottom=1);
 }
 
 if(false){  // halterung für schieblehre
     holder(height=1);
     translate([40, 0, 0])
     holder(height=1);
-    translate([0,0,40])
-    mirror([0,0,1])
+    
+    
+    translate([40,0,40])
+    rotate([0, 180, 0])
+    //mirror([0,0,1])
     attachment_caliper();
 }
 

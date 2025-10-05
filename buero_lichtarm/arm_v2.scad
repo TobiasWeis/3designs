@@ -37,6 +37,19 @@ module arm_piece_half(thickness=s){
     }
 }
 
+module arm_piece_quarter(thickness=s){
+    difference(){
+        hull(){
+            rotate([0,0,1.5*360/8])
+            cylinder(r=r, h=thickness, $fn=8);
+            
+            translate([50, 0, 0])
+            rotate([0,0,1.5*360/8])
+            cylinder(r=r, h=thickness, $fn=8);
+        }        
+    }
+}
+
 module arm(){
     difference(){
         union(){
@@ -54,13 +67,9 @@ module arm(){
             arm_piece_half(thickness=s-tolerance);
 
             //connector
-            difference(){
-                translate([100, 0, 0])
-                rotate([0,0,1.5*360/8])
-                cylinder(r=r, h=5*s, $fn=8);
-                
-                
-            }
+            translate([100, 0, 0])
+            rotate([0,0,1.5*360/8])
+            cylinder(r=r, h=5*s, $fn=8);
         }
         
         translate([0,0, 5*s/2])
@@ -90,6 +99,77 @@ module arm(){
             cylinder(r=(s-tolerance)/2-1.2, h=11, $fn=8);
         }
     }
+}
+
+module base(){
+    
+    difference(){
+        union(){
+            //arm_piece_half(thickness=s-tolerance);
+
+            //translate([0, 0, 2*s])
+            //arm_piece_half(thickness=s-tolerance);
+            
+            translate([200, 0, s])
+            rotate([0,0,180])
+            arm_piece_quarter(thickness=s-tolerance);
+            
+            translate([200, 0, 3*s])
+            rotate([0,0,180])
+            arm_piece_quarter(thickness=s-tolerance);
+
+            //connector
+            translate([150, 0, 0])
+            rotate([0,0,1.5*360/8])
+            cylinder(r=r, h=5*s, $fn=8);
+            
+            // halterung hinter pegboard
+            translate([105, -33.5, 0])
+            rotate([0, 0, 45])
+            cube([50, 15, 5*s]);
+        }
+        
+        // pegboard
+        // halterung hinter pegboard
+        translate([110.5, -36, -1])
+        rotate([0, 0, 45])
+        cube([50, 5.5, 5*s+2]);
+        
+        translate([0,0, 5*s/2])
+        rotate([0, 90, 90])
+        teardrop(4, 5*s+10, 90);
+        
+        translate([200,0, 5*s/2])
+        rotate([0, 90, 90])
+        teardrop(4, 5*s+10, 90);
+        
+        translate([0,0,-0.001])
+        rotate([0,0,1.5*360/6])
+        cylinder(r=7.9, h=7, $fn=6);
+    }
+}
+
+module beefygrip(){
+    difference(){
+        rotate([0,0,1.5*360/8])
+        cylinder(r=r, h=s, $fn=8);
+        
+        translate([0,0,s-8])
+        rotate([0,0,1.5*360/6])
+        cylinder(r=7.9, h=8, $fn=6);
+        
+        translate([0, 0, -70+s-8])
+        cylinder(r=4, h=70);
+    }
+}
+
+if(true){
+    base();
+}
+
+if(false){
+    translate([200, 0, 4*s])
+    beefygrip();
 }
 
 if(false){

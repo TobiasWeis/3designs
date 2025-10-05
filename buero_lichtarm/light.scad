@@ -30,6 +30,19 @@ module schraube(){
     }
 }
 
+module schraube_klemme(){
+    union(){
+        translate([0,0, -16]) // kopf
+        cylinder(r=4, h=6);
+        
+        translate([0, 0, -16+6]) // schraube
+        cylinder(r=2.2, h=10);
+    
+        #translate([0,0,-16+6+4.5])  // einschmelzmutter
+        cylinder(r=3.1, h=4.5);
+    }
+}
+
 module cutout(){
     // controller
     translate([-35/2, 86, -5])
@@ -94,38 +107,42 @@ module cutout(){
         }
     }
 
+
+    holding_length=60;
+
     // #äußere clipper + schienen oben
     for(y=[69.5]){
-        for(x=[42.5, -42.5-25]){
+        for(x=[42.5, -42.5-holding_length]){
             translate([x, y, 0])
-            cube([25, 17.5, 8.5]);
+            cube([holding_length, 17.4, 8.4]);
             //17.3, 8.5
         }
     }
 
     // äußere lichter unten
+    
     translate([0,0,-1.5])
     for(y=[-7]){
-        for(x=[42.5, -42.5-25]){
+        for(x=[42.5, -42.5-holding_length]){
             translate([x, y, 0]){
-                cube([25, 33.5, 6.5]);
+                cube([holding_length, 33.5, 6.5]);
                 
                 hull(){
                     translate([0, (33.5-28.8)/2, 6.5])
-                    cube([25, 28.8, 0.1]);
+                    cube([holding_length, 28.8, 0.1]);
                     
                     translate([0, (33.5-24)/2, 12.5])
-                    cube([25, 24, 0.1]);
+                    cube([holding_length, 24, 0.1]);
                 }
             }
             
             hull(){
-                translate([x+25, y+33.5/2, 21.3])
+                translate([x+holding_length, y+33.5/2, 21.3])
                 rotate([0, -90, 0])
-                cylinder(r=27.2/2, 25);
+                cylinder(r=27.2/2, holding_length);
                 
                 translate([x, y+(33.5-24)/2, 12.5])
-                cube([25, 24, 0.1]);
+                cube([holding_length, 24, 0.1]);
             }
         }
     }
@@ -137,6 +154,13 @@ module cutout(){
         }
     }
     
+    for(x=[60, -60]){
+        for(y=[10, 79]){
+            translate([x, y, 0])
+            schraube_klemme();
+        }
+    }
+    
     
 } // module cutout
 
@@ -145,6 +169,14 @@ module unten(){
         translate([-135/2, -20, -15])
         union(){
             cube([135, 120, 20]);
+            
+            for(x=[0, 135]){
+                for(y=[30, 98]){
+                    translate([x,y,0])
+                    rotate([0,0,22.5])
+                    cylinder(r=32.5, h=20, $fn=8);
+                }
+            }
             
             translate([135/2, 105, 0])
             rotate([0,0,22.5])
@@ -160,13 +192,21 @@ module oben(){
         union(){
             cube([135, 120, 35]);
             
+            for(x=[0, 135]){
+                for(y=[30, 98]){
+                    translate([x,y,0])
+                    rotate([0,0,22.5])
+                    cylinder(r=32.5, h=35, $fn=8);
+                }
+            }
+            
             translate([135/2, 105, 0])
             rotate([0,0,22.5])
             cylinder(r=146/2, h=35, $fn=8);
             
             // arme für halterung
-            translate([135/2-2*s, 205, 11.9])
-        rotate([90, 180, 90]){
+            translate([135/2-1.5*s, 205, 11.9])
+            rotate([90, 180, 90]){
             difference(){
                 union(){
                     arm_piece_half(thickness=s-tolerance);
@@ -182,10 +222,6 @@ module oben(){
                 translate([200,0, 5*s/2])
                 rotate([0, 90, 90])
                 teardrop(4, 5*s+10, 90);
-                
-                translate([0,0,-0.001])
-                rotate([0,0,1.5*360/6])
-                cylinder(r=7.9, h=7, $fn=6);
             }
         }
         }
@@ -201,6 +237,6 @@ module oben(){
 
 unten();
 
-translate([150, 0, 0])
+translate([200, 0, 0])
 rotate([0, 180, 0])
 oben();

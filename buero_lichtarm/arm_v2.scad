@@ -131,9 +131,27 @@ module base(){
         
         // pegboard
         // halterung hinter pegboard
+        /*
         translate([110.5, -36, -1])
         rotate([0, 0, 45])
         cube([50, 5.5, 5*s+2]);
+        */
+        
+        // wand-schraube
+        for(z=[4.4*s, .5*s]){
+            translate([140,10, z]){
+            rotate([0, 0, -45]){
+                teardrop(3, 5*s+50, 90); # TODO: radius!
+                translate([20,0,0])
+                teardrop(5, 45, 90);  # TODO: radius!
+            }
+        }
+        }
+        
+        // kabel-kanal
+        translate([147, 30, 2.5*s])
+        rotate([90, 0, -45])
+        cylinder(r=10, h=100, $fn=6);
         
         translate([0,0, 5*s/2])
         rotate([0, 90, 90])

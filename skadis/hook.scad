@@ -398,7 +398,7 @@ module attachment_flach(){
 }
 
 
-if(true){ // leiste mit vielen haken
+if(false){ // leiste mit vielen haken
     clippy_oval();
     translate([40*3, 0, 0])
     clippy_oval();

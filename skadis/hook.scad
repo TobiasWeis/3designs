@@ -61,6 +61,21 @@ module clippy_sphere(){
     }
 }
 
+module clippy_oval_hanging(){
+    difference(){
+        clippy_oval();
+        
+    translate([-10, 10, -20.5])
+    rotate([45,0,0])
+    cube([20,20,20]);
+        
+    translate([-10, -5, 17.5])
+    rotate([-45,0,0])
+    cube([20,20,20]);
+        
+    }
+}
+
 module clippy_oval(){
     bump_width=0.4;
     slit_width=0.7;
@@ -112,16 +127,26 @@ module clippy_oval(){
     }
 }
 
-module holder(height=1, hook_r=r_skadis){
+module holder(height=1, hook_r=r_skadis, clippy_oval_hanging=false){
     bump_width=0.8;
     slit_width=0.3;
     
-            
-    clippy_sphere();
+    
+    if(clippy_oval_hanging == false){
+        clippy_sphere();
+    }else{
+        translate([0, 0, -10-tolerance])
+        clippy_oval_hanging();
+    }
     
     if(height == 2){
-        translate([0, 0, -40])
-        clippy_sphere();
+        if(clippy_oval_hanging == false){
+            translate([0, 0, -40])
+            clippy_sphere();
+        }else{
+            translate([0, 0, -40-10-tolerance])
+            clippy_oval_hanging();
+        }
     }
     
     difference(){
@@ -451,18 +476,25 @@ if(false){ // breiter Zangenhalter
     attachment_zangenhalter(inner_depth=15);
 }
 
-if(false){ // breites, tiefes regal
-    clippy_oval();
+if(true){ // breites, tiefes regal
+    //clippy_oval_hanging();
     
     hook_distance = 2*40;
     
-    translate([hook_distance, 0, 0])
-    clippy_oval();
+    //translate([hook_distance, 0, 0])
+    //clippy_oval_hanging();
     
-    inner_width=84;
+    translate([0,0,50])
+    holder(height=2, clippy_oval_hanging=true);
+    
+    translate([hook_distance,0,50])
+    holder(height=2, clippy_oval_hanging=true);
+    
+    
+    inner_width=150;
     
     translate([r_skadis-tolerance - ((inner_width+2*(r_skadis-tolerance)) - hook_distance)/2 , 0, 0])
-    attachment_zangenhalter(inner_depth=25, inner_width=inner_width, height=30, bottom=1);
+    attachment_zangenhalter(inner_depth=45, inner_width=inner_width, height=85.2, bottom=1);
 }
 
 if(false){  // halterung für schieblehre

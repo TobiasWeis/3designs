@@ -38,7 +38,7 @@ module schraube_klemme(){
         translate([0, 0, -16+6]) // schraube
         cylinder(r=2.2, h=10);
     
-        #translate([0,0,-16+6+4.5])  // einschmelzmutter
+        #translate([0,0,-16+6])  // einschmelzmutter
         cylinder(r=3.1, h=4.5);
     }
 }
@@ -51,11 +51,11 @@ module cutout(){
     hull(){
         translate([0, 86+55+20, 0])
         rotate([90, 0, 0])
-        #cylinder(r=5, h=20);
+        cylinder(r=7, h=20);
         
         translate([0, 86+55+20, 5])
         rotate([90, 0, 0])
-        cylinder(r=5, h=20);
+        cylinder(r=7, h=20);
     }
 
     // "piping"
@@ -120,7 +120,6 @@ module cutout(){
     }
 
     // äußere lichter unten
-    
     translate([0,0,-1.5])
     for(y=[-7]){
         for(x=[42.5, -42.5-holding_length]){
@@ -161,6 +160,20 @@ module cutout(){
         }
     }
     
+    // einschmelzmuttern 1/4-zoll
+    for(x=[0]){
+        for(y=[130, 75, 20]){
+            translate([x, y, 27])
+            #cylinder(r=4, h=13);  // 8mm is gut
+            
+            if(y == 75){ // side-offset copies for.. accesories?
+                for(x2=[-50, 50]){
+                    translate([x2, y, 27])
+                    #cylinder(r=4, h=13);  // 8mm is gut
+                }
+            }
+        }
+    }
     
 } // module cutout
 
@@ -205,7 +218,7 @@ module oben(){
             cylinder(r=146/2, h=35, $fn=8);
             
             // arme für halterung
-            translate([135/2-1.5*s, 205, 11.9])
+            #translate([135/2-1.5*s, 220, 11.9])
             rotate([90, 180, 90]){
             difference(){
                 union(){

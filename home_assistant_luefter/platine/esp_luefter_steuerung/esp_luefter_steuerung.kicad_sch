@@ -1968,7 +1968,7 @@
 				)
 			)
 		)
-		(property "Value" "Conn_01x04_Pin"
+		(property "Value" "Fan2"
 			(at 138.43 39.37 90)
 			(effects
 				(font
@@ -2826,7 +2826,7 @@
 				)
 			)
 		)
-		(property "Value" "Conn_01x04_Pin"
+		(property "Value" "Fan1"
 			(at 118.11 39.37 90)
 			(effects
 				(font
